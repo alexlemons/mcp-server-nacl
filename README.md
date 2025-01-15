@@ -28,7 +28,8 @@ Generates a hash value for a given message using a given algorithm (SHA256, SHA5
 
 ## Results
 
-...
+<img src="./src/nacl_service/test_integration/test_generate_hash_1.png" width="800px" />
+<img src="./src/nacl_service/test_integration/test_generate_hash_2.png" width="800px" />
 
 
 ## Setup
