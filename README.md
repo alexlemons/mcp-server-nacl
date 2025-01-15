@@ -7,19 +7,18 @@ The [Model Context Protocol](https://modelcontextprotocol.io/introduction) is an
 By creating a universal standard, connecting to AI systems becomes simple and reliable. 
 Fragmented integrations can be replaced with a single protocol.
 
-The architecture is straightforward:  
+The basic architecture:  
 - MCP servers expose data/tools  
 - MCP clients are AI applications that connect to MCP servers to consume data/tools.
 
-This project will explore this architecture by creating some MCP servers and testing them locally with Anthropic Claude.
+This project will explore MCP by testing different servers locally with Anthropic Claude (MCP client).
 
 
 ## Servers
 
 ### NaCl Service
 
-[NaCl](https://nacl.cr.yp.to/) is a library that provides cryptographic operations like encryption, decryption and hash functions. 
-[pynacl](https://github.com/pyca/pynacl) is a python wrapper for NaCl used under the hood of this server.
+[NaCl](https://nacl.cr.yp.to/) is a library that provides cryptographic operations like encryption, decryption and hash functions. This service exposes NaCl functionality to MCP clients. It uses [pynacl](https://github.com/pyca/pynacl), a python wrapper for NaCl, under the hood.
 
 Tools:
 - `generate_hash()`
