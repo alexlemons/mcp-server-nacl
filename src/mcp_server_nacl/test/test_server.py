@@ -1,4 +1,4 @@
-from nacl_service.server import generate_hash
+from mcp_server_nacl.server import generate_hash
 
 INPUT_MESSAGE = "TEST INPUT MESSAGE"
 

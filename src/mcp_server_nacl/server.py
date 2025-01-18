@@ -9,7 +9,7 @@ import nacl.hash
 Hash_Algorithm = Literal["SHA256", "SHA512"]    # TODO add BLAKE2b
 Output_Encoding = Literal["Hexadecimal", "Base64"]
 
-SERVER_NAME = "nacl-service"
+SERVER_NAME = "nacl"
 server = Server(SERVER_NAME)
 
 def generate_hash(
