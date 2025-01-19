@@ -1,5 +1,7 @@
 # MCP Server NaCL
 
+***Experimental project to try MCP***
+
 MCP server for [pynacl](https://github.com/pyca/pynacl), exposing cryptographic operations like encryption, decryption and hash functions to MCP clients.
 
 ### Model Context Protocol
