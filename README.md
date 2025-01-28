@@ -1,4 +1,4 @@
-# AV LSTM
+# Forex LSTM
 
 TODO: write README
 
