@@ -1,25 +1,48 @@
-from datetime import datetime
 import json
 import os
 import requests
-from typing import cast
+from typing import cast, TypedDict
 
 from ..types.instrument import Instrument
+from ..types.granularity import Candlestick_Granularity
+
+# open, high, low, close
+Candlestick_Data = TypedDict("Candlestick_Data", {
+    "o": str,
+    "h": str,
+    "l": str,
+    "c": str,
+})
+
+Instrument_Candle = TypedDict("Instrument_Candle", {
+    "complete": bool,
+    "mid": Candlestick_Data,
+    "volume": int,
+    "time": str
+})
+
+Instrument_Candles_Response = TypedDict("Instrument_Candles_Response", {
+    "candles": list[Instrument_Candle],
+    "granularity": Candlestick_Granularity,
+    "instrument": Instrument,
+})
 
 BASE_URL = "https://api-fxpractice.oanda.com"
+OANDA_API_KEY = cast(str, os.getenv("OANDA_API_KEY"))
 
 s = requests.Session()
 s.headers = {
-    "Authorization": f"Bearer {cast(str, os.getenv("OANDA_API_KEY"))}",
+    "Authorization": f"Bearer {OANDA_API_KEY}",
 }
 
 def get_instrument_candles(
     instrument: Instrument,
     from_timestamp: float, 
     to_timestamp: float, 
-):
+) -> Instrument_Candles_Response:
     """
     See:
+        developer.oanda.com/rest-live-v20/instrument-ep
         oanda.com/uk-en/trading/instruments
     """
     try:        
