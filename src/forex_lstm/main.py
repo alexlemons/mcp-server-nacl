@@ -2,7 +2,7 @@ import json
 import math
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler, Normalizer
+# from sklearn.preprocessing import MinMaxScaler, Normalizer
 from typing import cast
 
 from .requests.forex import Instrument_Candles_Response
@@ -24,12 +24,14 @@ close_price = np.array(l_close_price)
 # 90:10 split of data training:validation 
 # Data split before any processing to avoid lookahead bias
 split_index = math.ceil(len(l_dates) * 0.9)
-
 dates_training, dates_validation = np.split(dates, [split_index])
 close_price_training, close_price_validation = np.split(close_price, [split_index])
 
 plt.plot(dates_training, close_price_training)
 plt.plot(dates_validation, close_price_validation)
+plt.ylabel("GBP JPY")
+axes = plt.gca()  
+axes.set_facecolor((0.85, 0.85, 0.9))
 plt.show()
 
 # # TODO normalization
