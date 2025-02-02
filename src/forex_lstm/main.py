@@ -1,22 +1,15 @@
-from datetime import datetime
-from functools import reduce
-import numpy as np
+import json
+import math
 import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler, Normalizer
+from typing import cast
 
-from .requests.forex import get_instrument_candles
+from .requests.forex import Instrument_Candles_Response
 
-from_timestamp = datetime(2024, 1, 1).timestamp()
-to_timestamp = datetime(2024, 12, 31).timestamp()
-
-res = get_instrument_candles(
-    instrument="GBP_JPY",
-    from_timestamp=from_timestamp,
-    to_timestamp=to_timestamp,
-)
-
-# import json
-# with open('data.json', 'w') as f:
-#     json.dump(res, f)
+# Open saved response
+with open('src/forex_lstm/response_data/GBP_JPY_2005_2025.json', 'r') as file:
+    res = cast(Instrument_Candles_Response, json.load(file))
 
 # Convert ISO date to np.datetime64
 # Convert str close price to float 
@@ -27,5 +20,17 @@ for _idx, day in enumerate(res["candles"]):
 
 dates = np.array(l_dates)
 close_price = np.array(l_close_price)
-plt.plot(dates, close_price)
+
+# 90:10 split of data training:validation 
+# Data split before any processing to avoid lookahead bias
+split_index = math.ceil(len(l_dates) * 0.9)
+
+dates_training, dates_validation = np.split(dates, [split_index])
+close_price_training, close_price_validation = np.split(close_price, [split_index])
+
+plt.plot(dates_training, close_price_training)
+plt.plot(dates_validation, close_price_validation)
 plt.show()
+
+# # TODO normalization
+# scaler = MinMaxScaler(feature_range=(-1, 1))
